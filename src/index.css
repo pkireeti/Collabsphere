@@ -1,0 +1,447 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --px-night: #0a0f24;
+    --px-panel: #141c36;
+    --px-panel-light: #1d2849;
+    --px-panel-dark: #0c1226;
+    --px-line: #35436e;
+    --px-cream: #f4f1e4;
+    --px-mist: #a9b6d9;
+    --px-mist-dim: #7382ab;
+    --px-sky: #3ec8f2;
+    --px-sky-deep: #0e86b4;
+    --px-flame: #f2761a;
+    --px-green: #4cd07a;
+    --px-red: #f0506a;
+    --px-ink: #070b18;
+    --px-shadow: #05070f;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--px-night);
+  }
+
+  body {
+    @apply bg-night font-body;
+    color: var(--px-cream);
+    font-size: 17px;
+    line-height: 24px;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Press Start 2P ships a single weight — never let the browser fake-bold it */
+  b,
+  strong,
+  .font-black,
+  .font-extrabold,
+  .font-bold {
+    font-weight: 400 !important;
+  }
+
+  /* Poster headings always use the pixel display face */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .tracking-poster {
+    font-family: 'Press Start 2P', ui-monospace, monospace;
+    letter-spacing: 0;
+  }
+
+  ::selection {
+    background: var(--px-sky);
+    color: var(--px-ink);
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--px-sky);
+    outline-offset: 2px;
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--px-panel-dark);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--px-line);
+    border: 3px solid var(--px-panel-dark);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--px-sky);
+  }
+}
+
+@layer components {
+  /* ---------- Pixel display type ---------- */
+  .display-xl {
+    @apply font-sans text-cream;
+    font-size: clamp(1.5rem, 5.4vw, 3rem);
+    line-height: 1.35;
+    text-shadow: 4px 4px 0 var(--px-shadow);
+  }
+  .display-lg {
+    @apply font-sans text-cream;
+    font-size: clamp(1.25rem, 3.6vw, 2rem);
+    line-height: 1.4;
+    text-shadow: 3px 3px 0 var(--px-shadow);
+  }
+  .display-md {
+    @apply font-sans text-cream;
+    font-size: clamp(1rem, 2.4vw, 1.375rem);
+    line-height: 1.5;
+    text-shadow: 2px 2px 0 var(--px-shadow);
+  }
+  .h-card {
+    @apply font-sans text-cream;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .text-chunky {
+    text-shadow: 3px 3px 0 var(--px-shadow);
+  }
+  .text-chunky-ink {
+    text-shadow: 3px 3px 0 var(--px-ink);
+  }
+  /* dark poster text with a white offset shadow — for the light sky band */
+  .text-on-sky {
+    color: var(--px-ink);
+    text-shadow: 3px 3px 0 #ffffff;
+  }
+
+  /* ---------- Tiny uppercase caption ---------- */
+  .label-xs {
+    @apply font-sans text-[9px] uppercase tracking-label;
+    line-height: 1.6;
+  }
+  .hint {
+    @apply font-body text-px-sm text-mist-dim;
+    line-height: 1.5;
+  }
+
+  /* ---------- Hard pixel rule ---------- */
+  .rule {
+    @apply h-[3px] w-full bg-line;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 font-sans uppercase tracking-label;
+    font-size: 12px;
+    line-height: 1;
+    padding: 12px 18px;
+    border: 3px solid var(--px-shadow);
+    box-shadow: 4px 4px 0 0 var(--px-shadow);
+    transition:
+      transform 80ms steps(2, end),
+      box-shadow 80ms steps(2, end),
+      background-color 80ms steps(2, end),
+      color 80ms steps(2, end);
+  }
+  .btn:hover:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 0 var(--px-shadow);
+  }
+  .btn:active:not(:disabled) {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 var(--px-shadow);
+  }
+  .btn:disabled {
+    @apply cursor-not-allowed opacity-50;
+    transform: none;
+    box-shadow: 4px 4px 0 0 var(--px-shadow);
+  }
+
+  .btn-primary {
+    @apply btn bg-sky text-ink hover:bg-cream;
+  }
+  .btn-flame {
+    @apply btn bg-flame text-ink hover:bg-flame-dark;
+  }
+  .btn-ghost {
+    @apply btn border-line bg-panel text-cream hover:border-sky hover:bg-panel-light hover:text-sky;
+  }
+  .btn-quiet {
+    @apply btn border-transparent bg-transparent text-mist shadow-none hover:bg-panel-light hover:text-cream;
+  }
+  .btn-danger {
+    @apply btn border-[#7a1224] bg-pixred-light text-pixred-dark hover:bg-pixred hover:text-ink;
+  }
+  .btn-sm {
+    font-size: 10px;
+    padding: 8px 12px;
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    @apply border-[3px] border-line bg-panel shadow-card;
+  }
+  .card-hover {
+    transition:
+      transform 80ms steps(2, end),
+      box-shadow 80ms steps(2, end),
+      border-color 80ms steps(2, end);
+  }
+  .card-hover:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--px-shadow);
+    border-color: var(--px-sky);
+  }
+  .card-flat {
+    @apply border-[3px] border-line bg-panel-dark;
+  }
+
+  /* ---------- Form fields ---------- */
+  .field {
+    @apply w-full border-[3px] border-line bg-panel-dark font-body text-px-base text-cream;
+    padding: 10px 12px;
+    box-shadow: inset 3px 3px 0 0 rgba(5, 7, 15, 0.65);
+    transition:
+      border-color 80ms steps(2, end),
+      box-shadow 80ms steps(2, end);
+  }
+  .field::placeholder {
+    @apply text-mist-dim;
+  }
+  .field:focus {
+    @apply outline-none border-sky;
+    box-shadow:
+      inset 3px 3px 0 0 rgba(5, 7, 15, 0.65),
+      0 0 0 3px rgba(62, 200, 242, 0.3);
+  }
+  .field-label {
+    @apply mb-1.5 block font-sans text-[9px] uppercase tracking-label text-mist;
+  }
+  .field-error {
+    @apply mt-1.5 font-body text-px-sm text-pixred-dark;
+  }
+
+  /* ---------- Chips / pills / tags ---------- */
+  .chip {
+    @apply inline-flex items-center gap-1.5 border-2 border-line bg-panel-dark px-3 py-1 font-sans text-[9px] uppercase tracking-label text-mist;
+    line-height: 1.8;
+  }
+  .chip-active {
+    @apply border-sky bg-sky text-ink;
+  }
+  .pill {
+    @apply inline-flex items-center gap-1.5 border-2 border-ink/40 px-2.5 py-0.5 font-sans text-[9px] uppercase tracking-label;
+    line-height: 1.9;
+  }
+
+  /* ---------- Sky band (banded, no smooth gradient) ---------- */
+  .sky-band {
+    background: linear-gradient(180deg, #7fd4f4 0 32%, #4fc0ec 32% 64%, #2fa9dc 64% 100%);
+    border-bottom: 4px solid var(--px-shadow);
+  }
+
+  /* ---------- Decorative scanline overlay ---------- */
+  .scanlines {
+    position: relative;
+  }
+  .scanlines::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(180deg, rgba(7, 11, 24, 0.16) 0 2px, transparent 2px 6px);
+  }
+
+  /* ---------- Skeleton (blocky, steps shimmer) ---------- */
+  .skeleton {
+    @apply relative overflow-hidden border-2 border-line bg-panel-light;
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0 14px,
+      rgba(62, 200, 242, 0.22) 14px 28px
+    );
+    animation: shimmer 1.3s steps(9, end) infinite;
+  }
+
+  /* ---------- Poster numeral ---------- */
+  .numeral {
+    @apply font-sans leading-none text-sky;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    text-shadow: 4px 4px 0 var(--px-shadow);
+  }
+
+  /* ---------- Retro table ---------- */
+  .table-pixel {
+    @apply w-full border-collapse font-body text-px-sm;
+  }
+  .table-pixel th {
+    @apply border-[3px] border-ink bg-panel-light px-3 py-2 text-left font-sans text-[9px] uppercase tracking-label text-sky;
+  }
+  .table-pixel td {
+    @apply border-[3px] border-ink bg-panel px-3 py-2 text-cream;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .pixel-img {
+    image-rendering: pixelated;
+  }
+  .notch {
+    clip-path: polygon(
+      0 6px,
+      6px 6px,
+      6px 0,
+      calc(100% - 6px) 0,
+      calc(100% - 6px) 6px,
+      100% 6px,
+      100% calc(100% - 6px),
+      calc(100% - 6px) calc(100% - 6px),
+      calc(100% - 6px) 100%,
+      6px 100%,
+      6px calc(100% - 6px),
+      0 calc(100% - 6px)
+    );
+  }
+  .grid-dither {
+    background-image:
+      linear-gradient(rgba(62, 200, 242, 0.07) 2px, transparent 2px),
+      linear-gradient(90deg, rgba(62, 200, 242, 0.07) 2px, transparent 2px);
+    background-size: 24px 24px;
+  }
+  .leaflet-container {
+    font-family: VT323, ui-monospace, monospace;
+    border-radius: 0;
+    z-index: 0;
+    background: var(--px-panel-dark);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pixel-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================= Leaflet, restyled for the pixel world ================= */
+.leaflet-container {
+  font-family: VT323, ui-monospace, monospace;
+  border: 4px solid var(--px-shadow);
+  box-shadow: 4px 4px 0 0 var(--px-shadow);
+}
+.leaflet-container a {
+  color: var(--px-sky);
+}
+.leaflet-tile-pane {
+  filter: brightness(0.78) saturate(0.62) hue-rotate(187deg) contrast(1.06);
+}
+.leaflet-bar {
+  border: 3px solid var(--px-shadow) !important;
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 0 var(--px-shadow) !important;
+}
+.leaflet-bar a {
+  background: var(--px-panel-light);
+  color: var(--px-cream);
+  border-radius: 0 !important;
+  border-bottom-color: var(--px-line);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+}
+.leaflet-bar a:hover {
+  background: var(--px-sky);
+  color: var(--px-ink);
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--px-panel);
+  color: var(--px-cream);
+  border-radius: 0;
+  border: 3px solid var(--px-shadow);
+  box-shadow: 4px 4px 0 0 var(--px-shadow);
+}
+.leaflet-popup-content {
+  margin: 10px 12px;
+  font-size: 16px;
+}
+.leaflet-popup-content h4 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+.leaflet-popup-close-button {
+  color: var(--px-mist) !important;
+}
+
+/* ================= Pixel map pin ================= */
+.cs-pin {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  background: var(--px-sky);
+  border: 3px solid var(--px-shadow);
+  box-shadow: 3px 3px 0 0 rgba(5, 7, 15, 0.55);
+}
+.cs-pin::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  border-right: 3px solid var(--px-shadow);
+  border-bottom: 3px solid var(--px-shadow);
+  transform: translateX(-50%) rotate(45deg);
+}
+.cs-pin > span {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: var(--px-ink);
+  line-height: 1;
+}
+.cs-pin-active {
+  background: var(--px-flame);
+  z-index: 500;
+}
