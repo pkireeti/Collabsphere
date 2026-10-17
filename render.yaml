@@ -1,0 +1,20 @@
+# Render blueprint — static site (Vite build → dist/)
+services:
+  - type: static
+    name: collabsphere
+    runtime: node
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    # SPA fallback: unmatched paths serve index.html for client-side routing
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+# Built without VITE_SUPABASE_* vars → ships in demo mode (seeded data),
+# which is what you want for a self-contained submission demo.
+# To switch a deploy to live Supabase later, add these environment
+# variables in the Render dashboard (they are inlined at build time),
+# then click "Manual Deploy":
+#   VITE_SUPABASE_URL      = https://izvdkwbyoiuejgurftfm.supabase.co
+#   VITE_SUPABASE_ANON_KEY = (your publishable key)
